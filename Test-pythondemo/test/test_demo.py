@@ -1,4 +1,7 @@
 import random
+import pytest
+
+
 # sum1 = 0
 # for i in range(0, 101, 2):
 #     sum1 = sum1 + i
@@ -45,3 +48,82 @@ import random
 # print(dict3)
 # dict4 = {v: k for k, v in dict2.items()}
 # print(dict4)
+
+def setup_module():
+    print('全局模块——开始')
+
+
+def teardown_module():
+    print('全局模块——结束')
+
+
+# def setup_class():
+#     print('类模块——开始')
+#
+#
+# def teardown_class():
+#     print('类模块——结束')
+
+
+# def teardown_function():
+#     print('方法——结束')
+#
+#
+# def setup_function():
+#     print('方法——开始')
+
+
+class TestDemo1:
+
+    def setup_class(self):
+        print('类模块——开始')
+
+    def teardown_class(self):
+        print('类模块——结束')
+
+    def teardown(self):
+        print('方法——结束')
+
+    def setup(self):
+        print('方法——开始')
+
+    def test_func(self):
+        a = 1
+        b = 2
+        expect = 3
+        assert a + b == expect, '测试结果'
+
+    def test_func2(self):
+        print('case2')
+
+
+class TestDemo2:
+
+    def test_func3(self):
+        a = 1
+        b = 2
+        expect = 3
+        assert a + b == expect, '测试结果'
+
+    def test_func4(self):
+        print('case2')
+
+
+namelist = ['name1', 'name2', 'name3']
+
+
+@pytest.mark.parametrize('name', namelist, ids=['第一', '第二', '第三'])
+def test_name(name):
+    print(f"名字是{name}")
+
+
+@pytest.mark.parametrize('test_input, expected', [('1+2', 3), ('3+4', 8), ('5+6', 11)])
+def test_mark_more(test_input, expected):
+    assert eval(test_input) == expected
+
+
+@pytest.mark.parametrize('name', ['小明', '小红', '大壮'])
+@pytest.mark.parametrize('food', ['面条', '米饭', '屎'])
+@pytest.mark.food
+def test_dkej(name, food):
+    print(f"{name}喜欢{food}")
