@@ -3,8 +3,17 @@ coding:utf-8
 @Author:大轩
 """
 import pytest
+import yaml
 
 from pythoncode.coding.calculator import Calculator
+
+# def test_get_datas():
+#     with open('./datas.yml', encoding="utf-8") as f:
+#         result = yaml.safe_load(f)
+#         # print(result['add']['P0']['datas'])
+#         add_P0_datas = result.get('add').get('P0').get('datas')
+#         add_P0_ids = result.get('add').get('P0').get('ids')
+#     return add_P0_datas,add_P0_ids
 
 
 class TestCalculator:
