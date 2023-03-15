@@ -3,6 +3,7 @@ coding:utf-8
 @Author:大轩
 """
 import requests
+import xmltodict
 from jsonpath import jsonpath
 
 
@@ -60,5 +61,20 @@ class TestDemo:
         assert jsonpath(r.json(), '$..name')[0] == '提问区'
         print(jsonpath(r.json(), '$..name'))
 
+    def test_cookies(self):
+        headers = {
+            # "Cookie": "hogwarts=school",
+            'User-Agent': 'hogwarts'
+        }
+        cookie_data = {
+            'hogwarts': 'school',
+            'teacher': 'TEST'
+        }
+        r = requests.get('https://httpbin.ceshiren.com/cookies', headers=headers, cookies=cookie_data, timeout=3)
+        print(r.request.headers)
+        assert jsonpath(r.json(), 'cookies')[0] == {'hogwarts': 'school', 'teacher': 'TEST'}
 
-
+    def test_case1(self):
+        r = requests.get("https://www.baidu.com/")
+        print(r.text)
+        # print(xmltodict.parse(r.text))
